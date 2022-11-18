@@ -1,0 +1,33 @@
+﻿@page "/characters"
+@using SwapiAPIUI.Data
+@inject SwapiService CharacterService
+
+<PageTitle>Swapi Fetcher</PageTitle>
+
+@if (resp == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<ul>
+
+    @foreach (var character in resp.Characters)
+    {
+        <li>@character.Name</li>
+    }
+</ul>
+
+}
+
+@code {
+
+    private SwapiModel? resp;
+
+    protected override async Task OnInitializedAsync()
+    {
+        resp = await CharacterService.GetCharactersAsync();
+    }
+
+}
+
